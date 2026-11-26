@@ -546,9 +546,9 @@ verb=0, snitch_every=1, weightsFilePath=None, n_features=None):
         
 
 
-     #SIGUE CORRIGIENDO POR AQUÍ. HAZ UNA VERSIÓN MÁS GENERAL DE SAVE RESULTS Y WRITE HEADERS
-     # CUANDO VUELVAS A NN_train_and_test.py PUEDES BORRAR LA FUNCIÓN train_ANN, en esta función no se usa y puedes sustituir 
-     # #las nuveas funciones q escibas para escribir resultados y headers por las antiguas 
+     #TODO: CONTINUE FIXING FROM HERE. WRITE A MORE GENERAL VERSION OF SAVE RESULTS AND WRITE HEADERS
+     # WHEN YOU COME BACK TO NN_train_and_test.py YOU CAN DELETE THE FUNCTION train_ANN; it is not used in this function, and you can replace 
+     # #the old functions for writing results and headers with the new ones you write 
 
     if use_validation_data == True:  
         if outFilePath!=None:  
