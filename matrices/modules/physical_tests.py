@@ -192,4 +192,4 @@ def purity(N, DM):
         print("purity(), Err1")
         return -1
 
-    return trace(N, np.matmul(DM, DM))
+    return trace(N, np.matmul(DM, DM)).real

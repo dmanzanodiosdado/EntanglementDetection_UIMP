@@ -180,7 +180,7 @@ def generate_M_random_DMs_file(N, M, filepath, rng, pure=True, L_min=2, L_max=10
         negativities = np.array(negativities)
         negativity_mean = np.mean(negativities); negativity_std = np.std(negativities)
         prepend_whatever_distribution(filepath, negativity_mean, negativity_std, 'negativity')
-        return negativity_mean#, negativity_stdgenerate_M_random #!!!!!
+        return negativity_mean, negativity_std
     else:
         Ls = []
         purities = []
@@ -368,20 +368,22 @@ def generate_random_DMs_files_negativitywise(neg_resolution, M, N, filepath_root
     
     #Generate the negativity partition
     neg_part = np.linspace(0, max_neg, num=howManySubintervals+1, endpoint=True)
+    #Plain, rounded Python floats for file names and headers, e.g. '(0.0, 0.1)' (not np.float64(...) or 0.30000000000000004)
+    neg_labels = [round(float(x), 10) for x in neg_part]
     
     #Now that we have neg_part, we can generate the list of filepaths and open them
     filepaths = []
     for i in range(howManySubintervals):
-        filepaths.append(filepath_root+'_'+str((neg_part[i],neg_part[i+1]))+'.txt')
+        filepaths.append(filepath_root+'_'+str((neg_labels[i],neg_labels[i+1]))+'.txt')
     files_v = open_every_file(filepaths, openmode='w')
     
     #Write some informative headers in each file
     if pure==True:
         for i in range(howManySubintervals):
-            write_headers_pure(files_v[i], M, N, (neg_part[i],neg_part[i+1]))
+            write_headers_pure(files_v[i], M, N, (neg_labels[i],neg_labels[i+1]))
     else:
         for i in range(howManySubintervals):
-            write_headers_mixed(files_v[i], M, N, (neg_part[i],neg_part[i+1]), L_min, L_max)
+            write_headers_mixed(files_v[i], M, N, (neg_labels[i],neg_labels[i+1]), L_min, L_max)
     
     #Generate boolean array to check which subinterval has already been fully populated up to M DMs.
     files_are_full = np.empty((howManySubintervals,), dtype=bool)
@@ -427,7 +429,7 @@ def generate_random_DMs_files_negativitywise(neg_resolution, M, N, filepath_root
         return negativity_mean, negativity_std
     else:
         Ls = np.empty((howManySubintervals, M), dtype=int)
-        purities = np.empty((howManySubintervals, M), dtype=complex)
+        purities = np.empty((howManySubintervals, M), dtype=float)
         while np.prod(files_are_full)!=1:
             L = random_int(L_min, L_max, rng)
             DM_holder = generate_random_mixed_density_matrix(N, L, rng)
