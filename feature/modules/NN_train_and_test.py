@@ -133,8 +133,8 @@ def save_results(filepath, loss, standard_deviation, ASR, ASRSTD, additional_tes
     output_file.write('#Sucess rate averaged over every simulation and over every sample in the test set: '+str(ASR*100)+'%\n')
     output_file.write('#Sample standard deviation for averaged success rate: '+str(ASRSTD*100)+'%\n')
     if additional_tests_taken == True:
-        output_file.write('#Same average success rate for supplementary tests: '+str(ASR2)+'%\n')
-        output_file.write('#Sample STD for averaged success rate in supplementary tests: '+str(ASRSTD2)+'%\n')
+        output_file.write('#Same average success rate for supplementary tests: '+str([float(x) for x in ASR2])+'%\n')
+        output_file.write('#Sample STD for averaged success rate in supplementary tests: '+str([float(x) for x in ASRSTD2])+'%\n')
 
     if use_val_data == True:
         output_file.write('#Epoch\tLoss\t\tLoss sample STD\t\tVal. Loss\t\tV.L. sample STD\n')
