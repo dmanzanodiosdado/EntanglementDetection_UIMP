@@ -29,9 +29,9 @@ def file_to_numpyarray(filepath, N, label, take_redundancy, rows_to_skip=0):
     #the data file has one additional column whose entries are NaN. To prevent this from happening, we must specify
     #usecols=range(2N*N), if take_redundancy==True, or usecols=useful_cols(N,True) otherwise
     if take_redundancy==True:
-        output_array = pd.read_table(filepath, sep='\t', header=None, index_col=None, usecols=range(2*N*N), skiprows=rows_to_skip)
+        output_array = pd.read_table(filepath, sep='\t', header=None, index_col=None, comment='#', usecols=range(2*N*N), skiprows=rows_to_skip)
     else:
-        output_array = pd.read_table(filepath, sep='\t', header=None, index_col=None, usecols=useful_cols(N,True), skiprows=rows_to_skip)
+        output_array = pd.read_table(filepath, sep='\t', header=None, index_col=None, comment='#', usecols=useful_cols(N,True), skiprows=rows_to_skip)
     output_array = np.array(output_array, dtype=float)
     number_of_matrices = np.shape(output_array)[0]
     label_column = label*np.ones((number_of_matrices,1),dtype=float)

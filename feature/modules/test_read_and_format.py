@@ -26,7 +26,7 @@ def file_to_numpyarray_test(filepath, N, rows_to_skip=0):
 
     #The data files provided by D.M. have one tabulator at the end of each row, which makes pd.read_table() to think that 
     #the data file has one additional column whose entries are NaN. To prevent this from happening, we must specify usecols=range(first_n_columns)
-    output_array = pd.read_table(filepath, sep='\t', header=None, index_col=None, usecols=range(2*N*N), skiprows=rows_to_skip)
+    output_array = pd.read_table(filepath, sep='\t', header=None, index_col=None, comment='#', usecols=range(2*N*N), skiprows=rows_to_skip)
     return np.array(output_array, dtype=float)
     
     
